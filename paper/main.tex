@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+% \usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+\usepackage{biblatex}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -13,11 +15,18 @@
 
 \graphicspath{ {./assets/} }
 
+% \bibliographystyle{}
+\bibstyle{plain}
+\bibliography{main.bib}
+
+
 \begin{document}
     \include{titlepage}
     \tableofcontents
 
     \include{definitions}
+
+    \printbibliography
 \end{document}
 
 % REFERENCES
