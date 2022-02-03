@@ -15,4 +15,15 @@ Often we encounter convolution while we work with grid-structured data like imag
     \end{multicols}
 \end{figure}
 
-\textbf{GAT} \textit{(Graph attention network)} --- A type of GNN which uses attention mechanism (also borrowed from `casual' neural networks) which allows us to work with inputs of variable sizes and to focus on the most important features~\cite{velickovic2018graph}. 
+\textbf{GAT} \textit{(Graph Attention Network)} --- A type of GNN which uses attention mechanism (also borrowed from `casual' neural networks) which allows us to work with inputs of variable sizes and to focus on the most important features~\cite{velickovic2018graph}. 
+
+\textbf{Laplacian matrix} --- A matrix representation of a graph.
+Usually is calculated using the following formula~\cite{wiki_laplacian}:
+\begin{equation*}
+    L_{i, j} = 
+    \begin{cases}
+        \deg(v_i) & \mbox{if}\ i = j \\
+        -1 & \mbox{if}\ i \neq j\ \mbox{and}\ v_i \mbox{ is adjacent to } v_j \\
+        0 & \mbox{otherwise},
+\end{cases}
+\end{equation*}
