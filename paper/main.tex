@@ -1,25 +1,20 @@
 \documentclass[12pt]{article}
-% \usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
 \usepackage{biblatex}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{multicol}
-% \usepackage[russian]{babel}
 \usepackage{xcolor}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{float}
-% \usepackage{wrapfig}
 \usepackage{newtxtext, newtxmath}
 
 \graphicspath{ {./assets/} }
 
-% \bibliographystyle{}
 \bibstyle{plain}
-\bibliography{main.bib}
-
+\bibliography{references.bib}
 
 \begin{document}
     \include{titlepage}
@@ -28,9 +23,5 @@
     \include{introduction}
     \include{definitions}
 
-    \printbibliography
+    \printbibliography{}
 \end{document}
-
-% REFERENCES
-% 1. https://arxiv.org/abs/1901.00596
-% 2. https://arxiv.org/abs/1710.10903
