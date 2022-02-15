@@ -1,0 +1,2 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QUsing connectivity over simplices of higher dimension\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qplain\\E$"}

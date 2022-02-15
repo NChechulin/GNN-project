@@ -11,17 +11,28 @@
 \usepackage{float}
 \usepackage{newtxtext, newtxmath}
 
+\def \fancy
+
 \graphicspath{ {./assets/} }
 
 \bibstyle{plain}
 \bibliography{references.bib}
 
 \begin{document}
-    \include{report_titlepage}
+    \ifx\fancy\undefined
+        \include{report_titlepage}
+    \else
+        \include{titlepage}
+    \fi
+
     \tableofcontents
 
     \include{introduction}
     \include{definitions}
+
+    \ifx\fancy\undefined
+
+    \fi
 
     \printbibliography{}
 \end{document}
