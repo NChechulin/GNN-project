@@ -11,7 +11,8 @@
 \usepackage{float}
 \usepackage{newtxtext, newtxmath}
 
-\def \fancy
+% A flag to turn on "fancy" compilation - no stuff related to my university
+% \def \fancy
 
 \graphicspath{ {./assets/} }
 
@@ -19,7 +20,7 @@
 \bibliography{references.bib}
 
 \begin{document}
-    \ifx\fancy\undefined
+    \ifx\fancy\undefined{}
         \include{report_titlepage}
     \else
         \include{titlepage}
@@ -30,8 +31,8 @@
     \include{introduction}
     \include{definitions}
 
-    \ifx\fancy\undefined
-
+    \ifx\fancy\undefined{}
+        \include{work_schedule}
     \fi
 
     \printbibliography{}
