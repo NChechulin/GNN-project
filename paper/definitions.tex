@@ -85,7 +85,7 @@
     \addcontentsline{toc}{subsection}{Convolutional Graph Network}
 
     \textbf{CGN} \textit{(Convolutional Graph Network)} --- A type of GNN which generalizes the convolution operation to graphs.
-    Often we encounter convolution while we work with grid-structured data like images, but here we use same idea (aggregate features of the neighbors) on nodes instead of pixels~\cite{9046288}.
+    Often we encounter convolution while we work with grid-structured data like images, but here we use same idea (aggregate features of the neighbors) on nodes instead of pixels~\cite{Wu_Pan_Chen_Long_Zhang_Yu_2021}~\cite{Kipf_Welling_2017}.
 
     \begin{figure}[h]
         \begin{multicols}{2}
@@ -120,13 +120,13 @@
 \subsection*{Graph Attention Network}
     \addcontentsline{toc}{subsection}{Graph Attention Network}
 
-    \textbf{GAT} \textit{(Graph Attention Network)} --- A type of GNN which uses attention mechanism (also borrowed from `casual' neural networks) which allows us to work with inputs of variable sizes and to focus on the most important features~\cite{velickovic2018graph}.
+    \textbf{GAT} \textit{(Graph Attention Network)} --- A type of GNN which uses attention mechanism (also borrowed from `casual' neural networks) which allows us to work with inputs of variable sizes and to focus on the most important features~\cite{Veličković_Cucurull_Casanova_Romero_Liò_Bengio_2018}.
     The attention mechanism is a function $a: \mathbb{R}^C \times \mathbb{R}^C \rightarrow \mathbb{R}$ which takes two feature vectors $X_i, X_j$ and returns a scalar representing how tight the connection between $v_i$ and $v_j$ is.
 
     We introduce an $N \times N$ matrix $e$ storing the attention between the nodes: $e_{i, j} = a\left( W \cdot X_i,\ W \cdot X_j \right)$.
     Now we have to be careful about choice of $i$ and $j$, since if we calculate the attention between all the nodes, we will completely drop structural information of the graph.
     One suggested solution is to use a neighborhood $\mathcal{N}_i$ of a vertex $v_i$ and then compute $e_{i, j}$ for all $j \in \mathcal{N}_i$.
-    Existing model~\cite{velickovic2018graph} uses neighborhood of size 1 (that is, $v_i$ itself and all of its neighbors $v_j$ such that $\exists e = (v_i, v_j)$), and it seems to perform great.
+    Existing model~\cite{Veličković_Cucurull_Casanova_Romero_Liò_Bengio_2018} uses neighborhood of size 1 (that is, $v_i$ itself and all of its neighbors $v_j$ such that $\exists e = (v_i, v_j)$), and it seems to perform great.
 
     One might also want to normalize the coefficients.
     In order to do that, we can apply softmax function: $c_{i, j} = \text{softmax}_j (e_{i, j}) = \frac{\text{exp}(e_{i, j})}{\Sigma_k \text{exp}(e_{i, k})}$.
