@@ -1,7 +1,8 @@
-\documentclass[12pt]{article}
-\usepackage{biblatex}
-\usepackage[T2A]{fontenc}
+\documentclass[14pt, a4paper]{extarticle}
+\usepackage[T2A,T1]{fontenc}
+\usepackage{extsizes}
 \usepackage[utf8]{inputenc}
+\usepackage{biblatex}
 \usepackage{hyperref}
 % \usepackage{mwe}
 \usepackage{blindtext}
@@ -13,9 +14,10 @@
 \usepackage{setspace}
 \usepackage{float}
 \usepackage{newtxtext, newtxmath}
+% \usepackage{lmodern}
 
 % A flag to turn on "fancy" compilation - no stuff related to my university
-% \def \fancy
+\def \fancy
 
 \graphicspath{ {./assets/} }
 
@@ -31,12 +33,15 @@
 
     \tableofcontents
 
-    \include{introduction}
-    \include{definitions}
+    \input{introduction}
+    \input{definitions}
 
     \ifx\fancy\undefined{}
-        \include{work_schedule}
+        \input{work_schedule}
     \fi
+
+    \section{Experiments}
+        \input{experiments_results/3clique}
 
     \printbibliography{}
 \end{document}

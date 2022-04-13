@@ -37,7 +37,7 @@
     \addcontentsline{toc}{subsection}{Incidence Matrix}
 
     If we have an undirected graph $(V, E)$, its incidence matrix $\nabla$ of size $\lvert V \rvert \times \lvert E \rvert$ such that $A_{i, j} = 1$ if $i$-th vertex is a vertex of $j$-th edge.
-    In directed case, we mark the initial vertex as -1, and the terminal as 1.
+    In directed case, we mark the initial vertex as -1, and the terminal as 1~\cite{wiki_incidence}.
 
     \begin{multicols}{2}
         \includegraphics[width=0.3\textwidth]{incidence.png}
@@ -129,4 +129,4 @@
     Existing model~\cite{Veličković_Cucurull_Casanova_Romero_Liò_Bengio_2018} uses neighborhood of size 1 (that is, $v_i$ itself and all of its neighbors $v_j$ such that $\exists e = (v_i, v_j)$), and it seems to perform great.
 
     One might also want to normalize the coefficients.
-    In order to do that, we can apply softmax function: $c_{i, j} = \text{softmax}_j (e_{i, j}) = \frac{\text{exp}(e_{i, j})}{\Sigma_k \text{exp}(e_{i, k})}$.
+    In order to do that, we can apply softmax function: $c_{i, j} = \text{softmax}_j \left( e_{i, j} \right) = \frac{\text{exp} \left( e_{i, j} \right)}{\Sigma_k \text{exp} \left( e_{i, k} \right) }$.
