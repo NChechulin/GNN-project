@@ -41,24 +41,26 @@ The process is shown on Figure~\ref{fig:clique_merged}.
 
 \subsubsection*{Results and interpretation}
 
-A benchmark on the Cora dataset~\cite{cora_dataset} had shown that we are able to remove a total of 12.2\% of nodes (the number reduced from 2708 to 2378) and 42.3\% edges (from 10556 to 6094).
+A benchmark on the Cora dataset~\cite{cora_dataset} had shown that we are able to remove a total of 14.1\% of nodes (the number reduced from 2708 to 2378) and 41.3\% edges (from 10556 to 6094).
 Since the operation of merging of all cliques fast comparing to the model's learning time, we reduced the latter approximately by 23\%.
 This improvement can be also seen on the loss graph of our models:
 
 \includegraphics[width=0.9\textwidth]{3clique_loss.png}
 
 Speaking of accuracy, we claim it did not change much.
-On average, the accuracy of a default model lies somewhere between 0.7 and 0.75 and the model with 3-cliques merged performs practically same with an error of $\pm 0.01$ (for example, 0.725 vs 0.72402).
+On average, the accuracy of a default model is 0.725, and the model with 3-cliques merged performs practically same --- the average accuracy is 0.695 (both results were achieved by taking average of 100 runs with 300 epochs).
+
+\includegraphics[width=0.9\textwidth]{3clique_accuracy.png}
 
 Therefore, we can claim that the only purpose of merging 3-cliques is reducing the learning time without any loss of accuracy.
 It doesn't make much sense for theoretical purposes, however, is definitely an advantage in production.
 
-\subsection{Graph of merged 3-cliques}
+% \subsection{Graph of merged 3-cliques}
 
-\subsubsection*{Description}
+% \subsubsection*{Description}
 
-This experiment is very similar to the previous one.
-The only difference is the resulting graph: in the first experiment we inserted the merged cliques back into the graph, but now we will erase all the nodes which are not a merged 3-clique.
+% This experiment is very similar to the previous one.
+% The only difference is the resulting graph: in the first experiment we inserted the merged cliques back into the graph, but now we will erase all the nodes which are not a merged 3-clique.
 
-\subsubsection*{Algorithm}
-\subsubsection*{Results and interpretation}
+% \subsubsection*{Algorithm}
+% \subsubsection*{Results and interpretation}
