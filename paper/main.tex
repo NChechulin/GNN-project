@@ -38,12 +38,17 @@
 	It is also possible to extract topological information from a graph --- by determining its `shape' we can understand the relation between nodes and somehow make use of this information.
 
 	This poses a huge problem: we have to invent new algorithms, adapt known techniques and constantly improve them in order to work with such a complex data.
+
 	Our goal is to research the efficiency of several tweaks of existing models and means of preprocessing graphs in order to increase several key indicators.
+
+	We will consider several topological methods of data preprocessing.
+	In particular, we will see and benchmark how merging simplexes of higher dimensions (in our case the third one) allow us to greatly reduce learning time while preserving the accuracy of a Graph Neural Network approximately at the same level.
+	This is especially important for production use of such neural networks, since these systems often demand reducing the response time and server load.
 \end{abstract}
 \pagebreak
 
 \tableofcontents
-
+\pagebreak
 \input{introduction}
 \input{definitions}
 
