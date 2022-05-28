@@ -24,6 +24,12 @@
 \bibstyle{plain}
 \bibliography{main.bib}
 
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Keywords: }} #1
+}
+
 \begin{document}
 \ifx\fancy\undefined{}
 	\include{report_titlepage}
@@ -45,6 +51,9 @@
 	In particular, we will see and benchmark how merging simplexes of higher dimensions (in our case the third one) allow us to greatly reduce learning time while preserving the accuracy of a Graph Neural Network approximately at the same level.
 	This is especially important for production use of such neural networks, since these systems often demand reducing the response time and server load.
 \end{abstract}
+\keywords{Graph Neural Network, Graph Convolutional Network, Graph Attention Network, Simplicial Complex, Clique}
+
+
 \pagebreak
 
 \tableofcontents
