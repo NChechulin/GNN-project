@@ -1,6 +1,6 @@
 \documentclass[14pt, a4paper]{extarticle}
-\usepackage[T2A,T1]{fontenc}
 \usepackage{extsizes}
+\usepackage[T2A,T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
 \usepackage{hyperref}
@@ -19,30 +19,40 @@
 
 % A flag to turn on "fancy" compilation - no stuff related to my university
 % \def \fancy
-
 \graphicspath{ {./assets/} }
 
 \bibstyle{plain}
 \bibliography{main.bib}
 
 \begin{document}
-    \ifx\fancy\undefined{}
-        \include{report_titlepage}
-    \else
-        \include{titlepage}
-    \fi
+\ifx\fancy\undefined{}
+	\include{report_titlepage}
+\else
+	\include{titlepage}
+\fi
 
-    \tableofcontents
+\begin{abstract}
+	Nowadays, a need to analyze more complex data arises.
+	Some objects and relations can not be represented as vectors in Euclidean space, and, therefore, we have to consider graphs --- sets of nodes and connections between them --- as a subject of analysis.
+	They are able to hold more information than traditional Euclidean object --- for example, nodes and edges may have their own features.
+	It is also possible to extract topological information from a graph --- by determining its `shape' we can understand the relation between nodes and somehow make use of this information.
 
-    \input{introduction}
-    \input{definitions}
+	This poses a huge problem: we have to invent new algorithms, adapt known techniques and constantly improve them in order to work with such a complex data.
+	Our goal is to research the efficiency of several tweaks of existing models and means of preprocessing graphs in order to increase several key indicators.
+\end{abstract}
+\pagebreak
 
-    %\ifx\fancy\undefined{}
-    %    \input{work_schedule}
-    %\fi
+\tableofcontents
 
-    \section{Experiments}
-        \input{experiments_results/3clique}
+\input{introduction}
+\input{definitions}
 
-    \printbibliography{}
+%\ifx\fancy\undefined{}
+%    \input{work_schedule}
+%\fi
+
+\section{Experiments}
+\input{experiments_results/3clique}
+
+\printbibliography{}
 \end{document}
