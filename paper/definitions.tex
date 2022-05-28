@@ -18,9 +18,11 @@ For instance, a road map of a country is an undirected weighted graph, where cit
 A graph clique is a subset of its nodes such that it is fully connected.
 So, n-clique is a set of $n$ nodes and $\frac{n \cdot (n - 1)}{2}$ edges~\cite{wiki_clique}.
 
-\begin{figure}[h]
+We will work mainly with 3-cliques, and often will refer to them as triangles.
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\textwidth]{clique.png}
+	\includegraphics[width=0.8\textwidth]{clique.png}
 	\caption{A graph with 23 1-vertex cliques (the vertices), 42 2-vertex cliques (the edges), 19 3-vertex cliques (light and dark blue triangles), and 2 4-vertex cliques (dark blue areas).}
 \end{figure}
 
@@ -90,11 +92,11 @@ Often we encounter convolution while we work with grid-structured data like imag
 \begin{figure}[h]
 	\begin{multicols}{2}
 		\centering
-		\includegraphics[width=0.25\textwidth]{conv.png}
+		\includegraphics[width=0.4\textwidth]{conv.png}
 		\caption{Convolution on image}
 
 		\centering
-		\includegraphics[width=0.25\textwidth]{CGN_conv.png}
+		\includegraphics[width=0.4\textwidth]{CGN_conv.png}
 		\caption{Convolution on graph}
 	\end{multicols}
 \end{figure}
@@ -120,7 +122,7 @@ The architecture of a graph convolutional network is presented on the figure bel
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{gcn.jpg}
-	\caption{Convolution on image}
+	\caption{Architecture of a GCN}
 \end{figure}
 
 \subsection*{Graph Attention Network}
@@ -136,3 +138,11 @@ Existing model~\cite{Veličković_Cucurull_Casanova_Romero_Liò_Bengio_2018} use
 
 One might also want to normalize the coefficients.
 In order to do that, we can apply softmax function: $c_{i, j} = \text{softmax}_j \left( e_{i, j} \right) = \frac{\text{exp} \left( e_{i, j} \right)}{\Sigma_k \text{exp} \left( e_{i, k} \right) }$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{gat.jpeg}
+	\caption{An example of multi-head attention in a neighborhood of size 1}
+\end{figure}
+
+

@@ -3,8 +3,11 @@
 \subsection{Abstract}
     Nowadays, a need to analyze more complex data arises.
     Some objects and relations can not be represented as vectors in Euclidean space, and, therefore, we have to consider graphs --- sets of nodes and connections between them --- as a subject of analysis.
+    They are able to hold more information than traditional Euclidean object --- for example, nodes and edges may have their own features.
+    It is also possible to extract topological information from a graph --- by determining its `shape' we can understand the relation between nodes and somehow make use of this information.
+
     This poses a huge problem: we have to invent new algorithms, adapt known techniques and constantly improve them in order to work with such a complex data.
-    Our goal is to research the efficiency of several tweaks of existing models. 
+    Our goal is to research the efficiency of several tweaks of existing models and means of preprocessing graphs in order to increase several key indicators. 
     
 \subsection{Relevance}
     The field of research (graph neural networks) might be considered relatively new, and, therefore, there is a huge number of possible improvements to be made to existing models and approaches.
@@ -19,17 +22,22 @@
         \caption{Default Laplacian (in blue) versus our Laplacian (in red). Y-axis is the accuracy, X-axis is the number of epochs}
     \end{figure}
 
+    The relative novelty of the field allows us to find new experiments and techniques.
+
 \subsection{Subject of research}
-    Let us explain the tasks we can solve using GNNs in more detail.
+Let us explain the tasks we can solve using GNNs \emph{Graph Neural Networks} in more detail.
     There are three of them:
     \begin{itemize}
-        \item \textit{Node classification} --- given a graph with several labeled nodes and several classes predict a class of an unlabeled node.
-            For example, given a set of scientific papers and their citations, determine the type of new paper.
+        \item \textit{Node classification} --- given a graph with several labelled nodes and several classes predict a class of an unlabelled node.
+            For example, the CORA~\cite{cora_dataset} contains information about scientific papers.
+            Each paper belongs to exactly one of seven given classes.
+            Our task is to determine the class of a new paper given its feature vector and connections with other papers (in this case the edges of the graph are citations, the edges are undirected).
         \item \textit{Graph classification} --- determine type of graph.
-            For instance, check if a molecule affects certain parameters of an organism.
+            A good example of this task is presented classification of molecules~\cite{how_powerful_are_gnns} or image classification~\cite{benchmarking_gnns}, as well as in many other fields.
         \item \textit{Link prediction} --- determine if two given nodes should have an edge between them.
             A simple example could be friends suggestions in a social network.
     \end{itemize}
+
     In our research we will only consider the first two problems.
 
     As we established, we want to consider several changes in order to improve the accuracy.
