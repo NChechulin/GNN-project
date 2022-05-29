@@ -5,13 +5,19 @@ The field of research (graph neural networks) might be considered relatively new
 Our ultimate goal is to improve the accuracy of node and graph classification.
 
 For example, one of the proposed changes is to modify a Laplacian in such a way that it does not break existing model and improves it.
-Our initial results have shown that our approach indeed works well on Karate club dataset, where we had to classify nodes:
+Our initial results have shown that our approach indeed works well on Karate club dataset, where we had to classify nodes, as shown on Figure~\ref{fig:laplacian_graph}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{custom_laplacian_accuracy.jpg}
 	\caption{Default Laplacian (in blue) versus our Laplacian (in red). Y-axis is the accuracy, X-axis is the number of epochs}
+	\label{fig:laplacian_graph}
 \end{figure}
+
+Despite already impressive accuracies achieved by other researchers, we also want to focus on learning time, since this characteristic is crucial for production use of models.
+As we will show later, they are used in a wide variety of tasks, some of which require awaiting of response.
+One of the techniques proposed can speed up learning process and prediction speed, while not dropping accuracy drastically.
+
 
 The relative novelty of the field allows us to find new experiments and techniques.
 

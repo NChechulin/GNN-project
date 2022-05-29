@@ -22,17 +22,17 @@ In this experiment we find all the 3-cliques~\cite{wiki_clique} (triangles) in t
 The following figures show exactly how a 3-clique is merged: the resulting feature vector is the average of the feature vectors of initial nodes: $\frac{1}{3} \cdot \left( (1, 4, 5) + (2, 7, 1) + (0, 1, 6) \right) = \frac{1}{3} \cdot (3, 12, 12) = (1, 4, 4)$
 
 \begin{multicols}{2}
-	\begin{Figure}
+	\begin{figure}
 		\centering
 		\includegraphics[width=0.37\textwidth]{3clique_before_merge_example.png}
 		\captionof{figure}{3-clique before merge}
-	\end{Figure}
+	\end{figure}
 
-	\begin{Figure}
+	\begin{figure}
 		\centering
 		\includegraphics[width=0.2\textwidth]{3clique_merged_example.png}
 		\captionof{figure}{Merged 3-clique}
-	\end{Figure}
+	\end{figure}
 \end{multicols}
 
 The source code is available in the project repository and can be found in the `experiments' directory~\cite{3clique_ins_experiment}.
@@ -84,4 +84,15 @@ On average, the accuracy of a default model is 0.725, and the model with 3-cliqu
 
 Therefore, we can claim that the only purpose of merging 3-cliques is reducing the learning time without significant loss of accuracy.
 It doesn't make much sense for theoretical purposes, however, is definitely an advantage in production.
+
+\subsubsection*{Prospects}
+
+In future we want to focus on topological aspect of the transformation presented in the paper.
+In particular, we are interested in `infinite merge', where `merged nodes' can be merged again.
+We also want to see how the transformation presented can be used in other graph tasks, for example, in graph classification.
+
+Another interesting idea is to exploit other topological feature of a graph.
+Sometimes nodes can be weakly connected to each other via edges, while probably having another mean of connections.
+For instance, if we consider a map with several coastal cities, we will see that the cities are `chained' (each of them has connections with 2 neighbors) and form some kind of a loop.
+We think it is possible to extract information from this form of connection.
 
