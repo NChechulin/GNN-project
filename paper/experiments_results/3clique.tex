@@ -2,9 +2,38 @@
 
 \subsection{3-Clique merge with insertion}
 
+\subsubsection*{Research method}
+
+We will compare the models performance on Planetoid/CORA dataset~\cite{cora_dataset} while classifying nodes of the graph.
+The dataset consists of exactly one undirected graph.
+The graph represents a citation network --- nodes are scientific papers, and edges are citations (if two nodes are connected then one paper cites the other).
+
+There are 2708 nodes and 10556 edges, and each node has a feature vector of length 1433 which stores the number of occurrences of 1433 predefined words.
+Each node (paper) is a member of exactly one of seven classes.
+
+The training node label rate is 5\%, which means that the neural network knows classes of 5\% of nodes while learning.
+
+The benchmark will be performed by taking average of 100 runs of 300 epochs.
+
 \subsubsection*{Description}
 
-In this experiment we find all the 3-cliqes~\cite{wiki_clique} (triangles) in the graph, then sort them based on `distance' and replace each 3-clique with one node sharing the features of the initial three.
+In this experiment we find all the 3-cliques~\cite{wiki_clique} (triangles) in the graph, then sort them based on `distance' and replace each 3-clique with one node (called \emph{merged node}) sharing the features of the initial three.
+
+The following figures show exactly how a 3-clique is merged: the resulting feature vector is the average of the feature vectors of initial nodes: $\frac{1}{3} \cdot \left( (1, 4, 5) + (2, 7, 1) + (0, 1, 6) \right) = \frac{1}{3} \cdot (3, 12, 12) = (1, 4, 4)$
+
+\begin{multicols}{2}
+	\begin{Figure}
+		\centering
+		\includegraphics[width=0.37\textwidth]{3clique_before_merge_example.png}
+		\captionof{figure}{3-clique before merge}
+	\end{Figure}
+
+	\begin{Figure}
+		\centering
+		\includegraphics[width=0.2\textwidth]{3clique_merged_example.png}
+		\captionof{figure}{Merged 3-clique}
+	\end{Figure}
+\end{multicols}
 
 The source code is available in the project repository and can be found in the `experiments' directory~\cite{3clique_ins_experiment}.
 
@@ -12,11 +41,11 @@ The source code is available in the project repository and can be found in the `
 
 Firstly, let us define a 3-clique more formally.
 We define it as follows: $
-\{ \left(a, b, c\right)\ 
-\lvert\ a, b, c \in V \wedge
-\left(a, b\right),
-\left(a, c\right),
-\left(b, c\right) \in E \} $.
+	\{ \left(a, b, c\right)\
+	\lvert\ a, b, c \in V \wedge
+	\left(a, b\right),
+	\left(a, c\right),
+	\left(b, c\right) \in E \} $.
 
 While merging nodes in the cliques, we might face a problem: some of the nodes might participate in several 3-cliques.
 In order to solve it, we need to introduce a mechanism for ordering cliques so that we could show preference to one instead of the other.
@@ -31,10 +60,11 @@ Therefore, one can simply sort all the 3-cliques in ascending order, merge each 
 This allows us pick the closest and most valuable nodes in a greedy way while also saving us from using a `new' node in another 3-clique ($(a, b, c) \rightarrow a';\ (a', d, e) \rightarrow a''$ is not allowed, since the graph could collapse).
 
 \begin{enumerate}
-    \item Find all the 3-cliques in graph.
-    \item Sort them according to the sum of distances between nodes
-    \item Merge all `valid' 3-cliques in one node preserving all the edges coming in and out of the triplet filtering out all the cliques containing nodes from the merged ones
-    \item Generate new dataset from the resulting graph
+	\item Find all the 3-cliques in graph.
+	\item Sort them according to the sum of distances between nodes
+	\item Merge all `valid' 3-cliques in one node. While doing so, we have to preserve all the edges coming in and out of the triplet. For each clique all the other cliques containing nodes from the current one have to be filtered out, so the `merged' nodes will are not merged with others.
+	\item Generate new dataset from the resulting graph.
+	\item Pass the generated dataset to model.
 \end{enumerate}
 
 The process is shown on Figure~\ref{fig:clique_merged}.
@@ -55,12 +85,3 @@ On average, the accuracy of a default model is 0.725, and the model with 3-cliqu
 Therefore, we can claim that the only purpose of merging 3-cliques is reducing the learning time without significant loss of accuracy.
 It doesn't make much sense for theoretical purposes, however, is definitely an advantage in production.
 
-% \subsection{Graph of merged 3-cliques}
-
-% \subsubsection*{Description}
-
-% This experiment is very similar to the previous one.
-% The only difference is the resulting graph: in the first experiment we inserted the merged cliques back into the graph, but now we will erase all the nodes which are not a merged 3-clique.
-
-% \subsubsection*{Algorithm}
-% \subsubsection*{Results and interpretation}
