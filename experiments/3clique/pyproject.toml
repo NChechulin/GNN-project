@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "3clique-merge"
+version = "0.1.0"
+description = "Experiments where we preprocess the data by merging triangles in a graoh"
+authors = ["Nikolay Chechulin <nchechulin@protonmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+torch = "^1.11.0"
+torchvision = "^0.12.0"
+torchaudio = "^0.11.0"
+torch-scatter = "^2.0.9"
+torch-sparse = "^0.6.13"
+torch-cluster = "^1.6.0"
+torch-spline-conv = "^1.2.1"
+torch-geometric = "^2.0.4"
+
+[tool.poetry.dev-dependencies]
+jupyter = "^1.0.0"
+black = "^22.3.0"
+mypy = "^0.960"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
