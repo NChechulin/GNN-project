@@ -1,11 +1,15 @@
-from time import time as current_time
-from dataclasses import dataclass
 from copy import deepcopy
-from tqdm.notebook import tqdm
-from GCNConv import GCNConv
-from torch_geometric.data import Data
-import torch
+from dataclasses import dataclass
+from time import time as current_time
+from typing import Tuple
+
 import numpy as np
+import torch
+import torch.nn.functional as F
+from torch_geometric.data import Data
+from tqdm.notebook import tqdm
+
+from GCNConv import GCNConvModel
 
 
 @dataclass(repr=False)
@@ -49,45 +53,38 @@ class TestResult:
 
 @dataclass
 class ModelTester:
-    model: GCNConv
-    data: Data
+    model: GCNConvModel
 
-    def __epoch_train(self, optimizer, criterion) -> float:
+    def __epoch_train(self, optimizer) -> float:
         self.model.train()
-        optimizer.zero_grad()  # Clear gradients.
-        out = self.model(
-            self.data.x, self.data.edge_index
-        )  # Perform a single forward pass.
-        loss = criterion(
-            out[self.data.train_mask], self.data.y[self.data.train_mask]
-        )  # Compute the loss solely based on the training nodes.
-        loss.backward()  # Derive gradients.
-        optimizer.step()  # Update parameters based on gradients.
+        optimizer.zero_grad()
+
+        mask = self.model.data.train_mask
+        loss = F.nll_loss(self.model()[mask], self.model.data.y[mask])
+        loss.backward()
+        optimizer.step()
+
         return float(loss)
 
-    def __test(self) -> float:
+    def __test(self) -> Tuple[float, float]:
         self.model.eval()
-        out = self.model(self.data.x, self.data.edge_index)
-        pred = out.argmax(dim=1)  # Use the class with highest probability.
-        test_correct = (
-            pred[self.data.test_mask] == self.data.y[self.data.test_mask]
-        )  # Check against ground-truth labels.
-        test_acc = int(test_correct.sum()) / int(
-            self.data.test_mask.sum()
-        )  # Derive ratio of correct predictions.
+        logits = self.model()
+
+        mask = self.model.data.test_mask
+        pred = logits[mask].max(1)[1]
+        test_acc = pred.eq(self.model.data.y[mask]).sum().item() / mask.sum().item()
+
         return test_acc
 
     def train(self, epochs: int) -> TestResult:
         optimizer = torch.optim.Adam(
             self.model.parameters(), lr=0.01, weight_decay=5e-4
         )
-        criterion = torch.nn.CrossEntropyLoss()
-
         model_backup = deepcopy(self.model)
 
         start_time = current_time()
 
-        losses = [self.__epoch_train(optimizer, criterion) for _ in range(epochs)]
+        losses = [self.__epoch_train(optimizer) for _ in range(epochs)]
 
         end_time = current_time()
 

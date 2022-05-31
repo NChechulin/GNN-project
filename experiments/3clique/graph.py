@@ -1,7 +1,7 @@
-from typing import Dict, List, Set, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 import torch
-from torch import Tensor, LongTensor, BoolTensor
+from torch import BoolTensor, LongTensor, Tensor
 from torch_geometric.data import Data
 
 
@@ -65,7 +65,7 @@ class Graph:
 
     def __add_edge(self, source: Node, destination: Node):
         """Adds an edge (source, destination) to adjacency list"""
-        # if key doesnt exist, create one with default value
+        # if key doesn't exist, create one with default value
         if self.adjacency_list.get(source, None) is None:
             self.adjacency_list[source] = set()
 
@@ -108,7 +108,7 @@ class Graph:
             c (Node): Some node
 
         Returns:
-            bool: True if any pair of given nodes has an edge between them
+            bool: True if all of given nodes has an edge between them
         """
         a_b = self.edge_exists(a, b)
         a_c = self.edge_exists(a, c)
@@ -136,13 +136,19 @@ class Graph:
 
         return list(result)
 
+    def __cleanup_adj_list(self):
+        extra_nodes = set(self.adjacency_list.keys()) - set(self.nodes)
+        for node in extra_nodes:
+            del self.adjacency_list[node]
+
     def replace_3clique_with_node(self, clique: Tuple[Node, Node, Node]):
         """Merges nodes from a 3-clique into one node sharing their features
 
         Args:
-            clique (Tuple[Node, Node, Node]): 3 Nodes forming a trianble
+            clique (Tuple[Node, Node, Node]): 3 Nodes forming a triangle
         """
         a, b, c = clique
+
         neighbors = (
             self.adjacency_list[a] | self.adjacency_list[b] | self.adjacency_list[c]
         )
@@ -152,17 +158,24 @@ class Graph:
 
         # remove all edges coming to these nodes
         for source in clique:
-            for destination in self.adjacency_list[source]:
-                self.adjacency_list[destination].remove(source)
+            for dest in self.adjacency_list[source]:
+                self.adjacency_list[dest] -= set(clique)
             self.adjacency_list.pop(source)
             self.nodes.remove(source)
+
+        # for source in clique:
+        #     for destination in self.adjacency_list[source]:
+        #         self.adjacency_list[destination].remove(source)
+        #     self.adjacency_list.pop(source)
+        #     self.nodes.remove(source)
 
         # crate a "general" node
         common_features: Tensor = (a.features + b.features + c.features) / 3
         new_node_name = a.name
         common_node = Node(new_node_name, common_features)
-
         self.nodes.append(common_node)
+        self.adjacency_list[common_node] = set()
+
         for neighbor in neighbors:
             self.__add_edge(common_node, neighbor)
             self.__add_edge(neighbor, common_node)
@@ -175,7 +188,7 @@ class Graph:
         """
         # Dict [old_name, new_name]
         names = {}
-
+        self.nodes.sort()
         for ind, node in enumerate(self.nodes):
             node.label = int(old_data.y[node.name])
             node.in_test_mask = bool(old_data.test_mask[node.name])
