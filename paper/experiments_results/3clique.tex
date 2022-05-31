@@ -21,19 +21,22 @@ In this experiment we find all the 3-cliques~\cite{wiki_clique} (triangles) in t
 
 The following figures show exactly how a 3-clique is merged: the resulting feature vector is the average of the feature vectors of initial nodes: $\frac{1}{3} \cdot \left( (1, 4, 5) + (2, 7, 1) + (0, 1, 6) \right) = \frac{1}{3} \cdot (3, 12, 12) = (1, 4, 4)$
 
-\begin{multicols}{2}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.37\textwidth]{3clique_before_merge_example.png}
-		\captionof{figure}{3-clique before merge}
-	\end{figure}
 
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.2\textwidth]{3clique_merged_example.png}
-		\captionof{figure}{Merged 3-clique}
-	\end{figure}
-\end{multicols}
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{3clique_before_merge_example}
+  \captionof{figure}{An example of a 3-clique}
+  \label{fig:test1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+	\includegraphics[width=.3\linewidth]{3clique_merged_example}
+  \captionof{figure}{Same 3-clique but merged}
+  \label{fig:test2}
+\end{minipage}
+\end{figure}
 
 The source code is available in the project repository and can be found in the `experiments' directory~\cite{3clique_ins_experiment}.
 
@@ -71,21 +74,27 @@ The process is shown on Figure~\ref{fig:clique_merged}.
 
 \subsubsection*{Results and interpretation}
 
-A benchmark on the Cora dataset~\cite{cora_dataset} had shown that we are able to remove a total of 14.1\% of nodes (the number reduced from 2708 to 2378) and 41.3\% edges (from 10556 to 6094).
-Since the operation of merging of all cliques fast comparing to the model's learning time, we reduced the latter approximately by 23\%.
+A benchmark on the Cora dataset~\cite{cora_dataset} had shown that we are able to remove a total of 21.71\% of nodes (the number reduced from 2708 to 2120) and 56.73\% edges (from 10556 to 4568).
+Since the operation of merging of all cliques fast comparing to the model's learning time, we reduced the latter approximately by 29.5\% (on average, went from 4.171s to 2.939s).
 This improvement can be also seen on the loss graph of our models:
 
-\includegraphics[width=0.9\textwidth]{3clique_loss.png}
-
 Speaking of accuracy, we claim it did not change much.
-On average, the accuracy of a default model is 0.725, and the model with 3-cliques merged performs practically same --- the average accuracy is 0.695 (both results were achieved by taking average of 100 runs with 300 epochs).
+On average, the accuracy of a default model is 0.803, and the model with 3-cliques merged performs practically same --- the average accuracy is 0.746 (both results were achieved by taking average of 100 runs with 300 epochs).
+So, the accuracy dropped by 7\% (0.057 in absolute value), while the speed increase was almost 30\%.
 
-\includegraphics[width=0.9\textwidth]{3clique_accuracy.png}
+\begin{center}
+	\includegraphics[width=0.75\textwidth]{3clique_accuracy.png}
+\end{center}
 
 Therefore, we can claim that the only purpose of merging 3-cliques is reducing the learning time without significant loss of accuracy.
 It doesn't make much sense for theoretical purposes, however, is definitely an advantage in production.
 
-\subsubsection*{Prospects}
+%\subsection{Infinite 3-clique merge}
+%	In this experiment, the methodology and the algorithm is similar to the `finite 3-clique merge'.
+%	\subsubsection*{}
+%	\subsubsection*{}
+
+\subsection{Prospects}
 
 In future we want to focus on topological aspect of the transformation presented in the paper.
 In particular, we are interested in `infinite merge', where `merged nodes' can be merged again.
