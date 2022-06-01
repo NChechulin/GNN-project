@@ -61,7 +61,7 @@ The resulting ordering now allows us to choose one 3-clique instead of another, 
 
 Therefore, one can simply sort all the 3-cliques in ascending order, merge each 3-clique and filter out all the `later' 3-cliques containing nodes from the current one.
 This allows us pick the closest and most valuable nodes in a greedy way while also saving us from using a `new' node in another 3-clique ($(a, b, c) \rightarrow a';\ (a', d, e) \rightarrow a''$ is not allowed, since the graph could collapse).
-
+So, the algorithm step by step looks like this:
 \begin{enumerate}
 	\item Find all the 3-cliques in graph.
 	\item Sort them according to the sum of distances between nodes
