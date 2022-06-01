@@ -1,7 +1,7 @@
 \newcommand\abs[1]{\ensuremath{\lvert #1 \rvert}}
 
 \subsection{3-Clique merge with insertion}
-
+\label{3clique_merge}
 \subsubsection*{Research method}
 
 We will compare the models performance on Planetoid/CORA dataset~\cite{cora_dataset} while classifying nodes of the graph.
@@ -89,10 +89,36 @@ So, the accuracy dropped by 7\% (0.057 in absolute value), while the speed incre
 Therefore, we can claim that the only purpose of merging 3-cliques is reducing the learning time without significant loss of accuracy.
 It doesn't make much sense for theoretical purposes, however, is definitely an advantage in production.
 
-%\subsection{Infinite 3-clique merge}
-%	In this experiment, the methodology and the algorithm is similar to the `finite 3-clique merge'.
-%	\subsubsection*{}
-%	\subsubsection*{}
+\subsection{Infinite 3-clique merge}
+\subsubsection*{Description}
+In this experiment, the methodology and the algorithm are similar to the `finite 3-clique merge'.
+The only difference is that we \emph{allow} merged nodes to participate in merge process again.
+The source code is available on GitHub as well~\cite{3clique_inf_merge_experiment}.
+
+\subsubsection*{Results and interpretation}
+The proposed method allowed us to remove the majority of information from a graph.
+This merge, or convolution, managed to delete as many as 60.12\% of the nodes and 93.79\% of edges.
+The performance of learning after this operation increased drastically --- the learning time went from 2.537 seconds to as low as 1.059 seconds (which is only 42\% of the original time).
+
+We can clearly see the improvement on the loss graph below.
+We estimate the greatest improvement to be at around 160 epochs, not 300 as we benchmarked.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{3clique_inf_loss}
+	\caption{Average loss for `default' and processed data}
+\end{figure}
+
+However, this comes at a high cost of decreased accuracy.
+Average accuracy went from 0.809 to 0.517 which is a 36\% decrease.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{3clique_inf_accuracy}
+	\caption{Accuracies of models with `default' and processed data}
+\end{figure}
+
+This extreme graph reduction is probably applicable in some cases, but we think that it would be better to find a balance in the number of number of merges --- heuristically find the number of iterations of algorithm described in Section~\ref{3clique_merge}.
 
 \subsection{Prospects}
 
