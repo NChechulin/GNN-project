@@ -15,6 +15,8 @@
 \usepackage{amsmath}
 
 \graphicspath{ {./assets/} }
+\bibstyle{plain}
+\bibliography{references.bib}
 
 \title{
 	Topological and Geometric Deep Learning\\
@@ -44,6 +46,13 @@
 	\frametitle{Sample frame title}
 	This is some text in the first frame. This is some text in the first frame. This is some text in the first frame.
 \end{frame}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\nocite{*}
+	\printbibliography{}
+\end{frame}
+
 
 \end{document}
 
