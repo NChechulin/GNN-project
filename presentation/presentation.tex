@@ -14,6 +14,13 @@
 \usepackage{newtxtext, newtxmath}
 \usepackage{amsmath}
 
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
 \graphicspath{ {./assets/} }
 \bibstyle{plain}
 \bibliography{references.bib}
