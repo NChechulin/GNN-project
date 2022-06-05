@@ -17,43 +17,43 @@
 	\end{figure}
 \end{frame}
 
-\subsection{Incidence Matrix}
-\begin{frame}{\subsecname}
-	If we have an undirected graph $(V, E)$, its incidence matrix $\nabla$ of size $\lvert V \rvert \times \lvert E \rvert$ such that $A_{i, j} = 1$ if $i$-th vertex is a vertex of $j$-th edge.
-	It shows relations between nodes and edges.
+%\subsection{Incidence Matrix}
+%\begin{frame}{\subsecname}
+%	If we have an undirected graph $(V, E)$, its incidence matrix $\nabla$ of size $\lvert V \rvert \times \lvert E \rvert$ such that $A_{i, j} = 1$ if $i$-th vertex is a vertex of $j$-th edge.
+%	It shows relations between nodes and edges.
 
-	\begin{multicols}{2}
-		\includegraphics[width=0.3\textwidth]{incidence.png}
+%	\begin{multicols}{2}
+%		\includegraphics[width=0.3\textwidth]{incidence.png}
 
-		\[
-			\begin{bmatrix}
-				1 & 0 & 0 & 0 & 0 \\
-				1 & 1 & 0 & 0 & 0 \\
-				0 & 1 & 1 & 0 & 1 \\
-				0 & 0 & 1 & 1 & 0 \\
-				0 & 0 & 0 & 1 & 1 \\
-			\end{bmatrix}
-		\]
+%		\[
+%			\begin{bmatrix}
+%				1 & 0 & 0 & 0 & 0 \\
+%				1 & 1 & 0 & 0 & 0 \\
+%				0 & 1 & 1 & 0 & 1 \\
+%				0 & 0 & 1 & 1 & 0 \\
+%				0 & 0 & 0 & 1 & 1 \\
+%			\end{bmatrix}
+%		\]
 
-	\end{multicols}
-\end{frame}
+%	\end{multicols}
+%\end{frame}
 
-\subsection{Laplacian matrix}
-\begin{frame}{\subsecname}
-	Another matrix representation of a graph.
-	Usually is calculated using the following formula:
-	\begin{equation*}
-		L_{i, j} =
-		\begin{cases}
-			\deg(v_i) & \mbox{if}\ i = j                                                 \\
-			-1        & \mbox{if}\ i \neq j\ \mbox{and}\ v_i \mbox{ is adjacent to } v_j \\
-			0         & \mbox{otherwise},
-		\end{cases}
-	\end{equation*}
-
-	However, other definitions also take place: $L = D - A$, where $D$ is a degree matrix and $A$ is an adjacency matrix.
-	Another way to calculate a Laplacian is $L = \nabla\nabla^{T}$, where $\nabla$ is an incidence matrix.
-\end{frame}
+%\subsection{Laplacian matrix}
+%\begin{frame}{\subsecname}
+%	Another matrix representation of a graph.
+%	Usually is calculated using the following formula:
+%	\begin{equation*}
+%		L_{i, j} =
+%		\begin{cases}
+%			\deg(v_i) & \mbox{if}\ i = j                                                 \\
+%			-1        & \mbox{if}\ i \neq j\ \mbox{and}\ v_i \mbox{ is adjacent to } v_j \\
+%			0         & \mbox{otherwise},
+%		\end{cases}
+%	\end{equation*}
+%
+%	However, other definitions also take place: $L = D - A$, where $D$ is a degree matrix and $A$ is an adjacency matrix.
+%	Another way to calculate a Laplacian is $L = \nabla\nabla^{T}$, where $\nabla$ is an incidence matrix.
+%\end{frame}
 
 \subsection{Convolutional Graph Network}
 \begin{frame}[allowframebreaks]{\subsecname}
