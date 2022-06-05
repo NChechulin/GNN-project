@@ -9,6 +9,7 @@
 ### LaTeX Formatter file ###
 __latexindent_temp.tex
 __latexindent_temp.pdf
+*.bak*
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
