@@ -93,9 +93,26 @@
 
 \subsection{Infinite 3-clique merge with insertion}
 
-\begin{frame}{\subsecname\ Description}
+\begin{frame}
+	\frametitle{Description}
 	In this experiment, the methodology and the algorithm are similar to the `finite 3-clique merge'.
 	The only difference is that we \emph{allow} merged nodes to participate in merge process again.
+
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\columnwidth]{graph_before_inf_merge.png}
+			\caption{Graph before merge}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\columnwidth]{graph_after_one_merge.png}
+			\caption{Graph after 1 merge}
+		\end{figure}
+	\end{columns}
 \end{frame}
 
 \subsubsection*{Results and interpretation}
