@@ -1,5 +1,6 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
+\usepackage{HSE-theme/beamerthemeHSE}
 \usepackage[T2A,T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
@@ -14,35 +15,25 @@
 \usepackage{newtxtext, newtxmath}
 \usepackage{amsmath}
 
-\addtobeamertemplate{navigation symbols}{}{%
-    \usebeamerfont{footline}%
-    \usebeamercolor[fg]{footline}%
-    \hspace{1em}%
-    \insertframenumber/\inserttotalframenumber
-}
+\usepackage{fontspec}      
+\setsansfont{HSE Sans} 
+\setmonofont{Courier Prime}
 
 \graphicspath{ {./assets/} }
 \bibstyle{plain}
 \bibliography{references.bib}
 
-\title{
-	Topological and Geometric Deep Learning\\
-	{\small Research Project}
-}
+\title{Topological and Geometric Deep Learning}
+\subtitle{Research project}
 \author{
 	\textbf{Student}: Nikolay Chechulin, DSBA-201\\
 	\textbf{Academic Supervisor}: Oleg Kachan, Research assistant at International Laboratory for Applied Topology and Applications
-}
-\institute{
-	Data Science and Business Analytics\\
-	Faculty of Computer Science\\
-	\includegraphics[height=.3\textheight]{assets/Higher_School_of_Economics_Logo.png}
 }
 \date{\today}
 
 \begin{document}
 
-\frame{\titlepage}
+\frame[plain]{\titlepage}
 
 \input{subject_area.tex}
 \input{results.tex}
