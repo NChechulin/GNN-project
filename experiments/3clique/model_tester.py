@@ -8,6 +8,8 @@ import torch
 import torch.nn.functional as F
 from torch_geometric.data import Data
 from tqdm.notebook import tqdm
+from scipy.special import entr, softmax
+from numpy import log2
 
 from GCNConv import GCNConvModel
 
@@ -18,6 +20,7 @@ class TestResult:
     losses: np.array
     accuracies: np.array
     training_times: np.array
+    entropies: np.array
 
     @property
     def avg_final_loss(self) -> float:
@@ -32,6 +35,10 @@ class TestResult:
     def avg_training_time(self) -> float:
         return sum(self.training_times) / len(self.training_times)
 
+    @property
+    def avg_entropy(self) -> float:
+        return sum(self.entropies) / len(self.entropies)
+
     def __repr__(self) -> str:
         lines = [
             f"Model:                  {self.model_name}",
@@ -39,6 +46,7 @@ class TestResult:
             f"Average training time:  {round(self.avg_training_time, 3)}s",
             f"Average accuracy:       {round(self.avg_accuracy, 5)}",
             f"Average final loss:     {round(self.avg_final_loss, 5)}",
+            f"Average entropy:        {round(self.avg_entropy, 5)}"
         ]
 
         return "\n".join(lines)
@@ -49,6 +57,7 @@ class TestResult:
         self.training_times = np.concatenate(
             (self.training_times, other.training_times)
         )
+        self.entropies = np.concatenate((self.entropies, other.entropies))
 
 
 @dataclass
@@ -66,6 +75,9 @@ class ModelTester:
 
         return float(loss)
 
+    def __entropy(self, row: np.array) -> float:
+        return (row * log2(row)).sum() * (-1) / log2(len(row))
+
     def __test(self) -> Tuple[float, float]:
         self.model.eval()
         logits = self.model()
@@ -74,7 +86,13 @@ class ModelTester:
         pred = logits[mask].max(1)[1]
         test_acc = pred.eq(self.model.data.y[mask]).sum().item() / mask.sum().item()
 
-        return test_acc
+        sm = softmax(logits[mask].detach().numpy(), axis=1)
+        entropies = np.array([self.__entropy(row) for row in sm])
+        avg_entropy = entropies.sum() / len(entropies)
+        # 1000x7 tensor
+        # stores well something
+
+        return test_acc, avg_entropy
 
     def train(self, epochs: int) -> TestResult:
         optimizer = torch.optim.Adam(
@@ -88,7 +106,7 @@ class ModelTester:
 
         end_time = current_time()
 
-        accuracy = self.__test()
+        accuracy, entropy = self.__test()
 
         self.model = model_backup
 
@@ -97,6 +115,7 @@ class ModelTester:
             training_times=np.array([end_time - start_time]),
             losses=np.array([losses]),
             accuracies=np.array([accuracy]),
+            entropies=np.array([entropy]),
         )
 
     def bulk_train(self, steps: int, epochs: int) -> TestResult:
@@ -110,3 +129,5 @@ class ModelTester:
                 result.concat(deepcopy(iter_result))
 
         return result
+
+#%%
