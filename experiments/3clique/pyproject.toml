@@ -21,7 +21,7 @@ scipy = "^1.8.1"
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
 black = {extras = ["jupyter"], version = "^22.3.0"}
-mypy = "^0.960"
+mypy = "^0.982"
 isort = "^5.10.1"
 
 [build-system]
